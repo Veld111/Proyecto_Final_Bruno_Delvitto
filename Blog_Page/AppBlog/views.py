@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from .models import Pelicula, Resena, Comentario
 
+def inicio(request):
+    return render(request, "AppBlog/index.html")
+
 # Listar todas las películas
 def lista_peliculas(request):
     peliculas = Pelicula.objects.all()
