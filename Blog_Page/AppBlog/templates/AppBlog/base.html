@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>{% block title %} Blog de Películas {% endblock title %}</title>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <link href="{% static 'AppBlog/css/styles.css' %}" rel="stylesheet" />
 </head>
 <body id="page-top">
     <!-- Navegación -->
@@ -19,21 +19,28 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'lista_peliculas' %}">Películas</a>
+                        <a class="nav-link" href="#">Peliculas</a>
                     </li>
-                    <!-- Otros ítems de navegación pueden ir aquí -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categorías</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reseñas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- Contenido Principal -->
-    <div class="container">
-        {% block main %}
-        {% endblock main %}
-    </div>
-    <!-- Pie de Página -->
-    <footer class="bg-dark text-white mt-5 p-4 text-center">
-        Copyright © 2023 Blog de Películas
+    {% block main %}
+    {% endblock main %}
+    <!-- Pie de página -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Derechos reservados &copy; Tu sitio web 2023</p>
+        </div>
     </footer>
 </body>
 </html>
