@@ -28,3 +28,15 @@ def detalles_resena(request, resena_id):
 def lista_comentarios(request, resena_id):
     comentarios = Comentario.objects.filter(resena_id=resena_id)
     return render(request, 'lista_comentarios.html', {'comentarios': comentarios})
+
+
+def detalles_pelicula(request, pelicula_id):
+    # Simulate a database query to get details of a specific movie
+    pelicula = Pelicula.objects.get(id=pelicula_id)
+    
+    # Pass the movie details to the template
+    context = {
+        'pelicula': pelicula
+    }
+    
+    return render(request, 'AppBlog/detalles_pelicula.html', context)
