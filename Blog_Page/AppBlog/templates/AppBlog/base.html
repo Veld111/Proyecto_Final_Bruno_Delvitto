@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>{% block title %} Blog de Películas {% endblock title %}</title>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'lista_peliculas' %}">Películas</a>
+                    </li>
+                    <!-- Otros ítems de navegación pueden ir aquí -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Contenido Principal -->
+    <div class="container">
+        {% block main %}
+        {% endblock main %}
+    </div>
+    <!-- Pie de Página -->
+    <footer class="bg-dark text-white mt-5 p-4 text-center">
+        Copyright © 2023 Blog de Películas
+    </footer>
+</body>
+</html>
