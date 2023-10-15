@@ -1,5 +1,15 @@
+{% extends 'AppBlog/base.html' %}
+
+{% block title %} Inicio {% endblock title %}
+
+{% block main %}
+<!-- Aquí tu contenido existente -->
+
+<!-- Aquí añadir la lista de blogs -->
 {% for blog in blogs %}
   <h2>{{ blog.titulo }}</h2>
   <p>{{ blog.resumen }}</p>
-  <a href="{% url 'AppBlog:detalle_blog' blog.id %}">Leer más</a>  <!-- Suponiendo que el detalle se llame 'detalle_blog' -->
+  <a href="{% url 'detalle_blog' blog.id %}">Leer más</a>
 {% endfor %}
+
+{% endblock main %}

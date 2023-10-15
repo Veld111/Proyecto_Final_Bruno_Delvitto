@@ -3,6 +3,13 @@
 {% block title %} Inicio {% endblock title %}
 
 {% block main %}
-    <h1>Bienvenido al Blog de Películas</h1>
-    <p>Encuentra las mejores reseñas y recomendaciones aquí.</p>
+<!-- Aquí tu contenido existente -->
+
+<!-- Aquí añadir la lista de blogs -->
+{% for blog in blogs %}
+  <h2>{{ blog.titulo }}</h2>
+  <p>{{ blog.resumen }}</p>
+  <a href="{% url 'detalle_blog' blog.id %}">Leer más</a>
+{% endfor %}
+
 {% endblock main %}

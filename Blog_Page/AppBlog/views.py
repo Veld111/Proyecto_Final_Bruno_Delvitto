@@ -7,15 +7,16 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 def detalle_blog(request, pageId):
     blog = get_object_or_404(Blog, id=pageId)
-    return render(request, 'detalle_blog.html', {'blog': blog})
+    return render(request, 'AppBlog/detalle_blog.html', {'blog': blog})
 
 def lista_blogs(request):
     blogs = Blog.objects.all()
-    return render(request, 'lista_blogs.html', {'blogs': blogs})
+    return render(request, 'AppBlog/lista_blogs.html', {'blogs': blogs})
 
 
 def inicio(request):
-    return render(request, 'AppBlog/index.html')
+    blogs = Blog.objects.all()  # Falta esta línea
+    return render(request, 'AppBlog/index.html', {'blogs': blogs})
 
 def peliculas(request):
     return render(request, 'AppBlog/peliculas.html')
