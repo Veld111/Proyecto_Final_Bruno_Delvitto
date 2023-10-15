@@ -1,11 +1,12 @@
 from django.urls import path
+from django.views.generic.base import RedirectView
 from AppBlog import views
 
 urlpatterns = [
-    path('', views.inicio, name='inicio'),
-    path('peliculas/', views.lista_peliculas, name='lista_peliculas'),
-    path('peliculas/<int:pelicula_id>/', views.detalles_pelicula, name='detalles_pelicula'),
-    path('peliculas/<int:pelicula_id>/resenas/', views.lista_resenas, name='lista_resenas'),
-    path('resenas/<int:resena_id>/', views.detalles_resena, name='detalles_resena'),
-    path('resenas/<int:resena_id>/comentarios/', views.lista_comentarios, name='lista_comentarios'),
+    path('', RedirectView.as_view(url='inicio/', permanent=True)),  # Redirigir la raíz a /inicio/
+    path('inicio/', views.inicio, name='inicio'),
+    path('peliculas/', views.peliculas, name='peliculas'),
+    path('categorias/', views.categorias, name='categorias'),
+    path('resenas/', views.resenas, name='resenas'),
+    path('about/', views.about, name='about'),  # Nueva ruta para la página 'About'
 ]

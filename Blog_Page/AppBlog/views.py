@@ -1,42 +1,21 @@
 from django.shortcuts import render
 from .models import Pelicula, Resena, Comentario
 
+from django.shortcuts import render
+
 def inicio(request):
-    return render(request, "AppBlog/index.html")
+    return render(request, 'AppBlog/index.html')
 
-# Listar todas las películas
-def lista_peliculas(request):
-    peliculas = Pelicula.objects.all()
-    return render(request, 'lista_peliculas.html', {'peliculas': peliculas})
+def peliculas(request):
+    return render(request, 'AppBlog/peliculas.html')
 
-# Detalles de una película específica
-def detalles_pelicula(request, pelicula_id):
-    pelicula = Pelicula.objects.get(id=pelicula_id)
-    return render(request, 'detalles_pelicula.html', {'pelicula': pelicula})
+def categorias(request):
+    return render(request, 'AppBlog/categorias.html')
 
-# Listar todas las reseñas de una película específica
-def lista_resenas(request, pelicula_id):
-    resenas = Resena.objects.filter(pelicula_id=pelicula_id)
-    return render(request, 'lista_resenas.html', {'resenas': resenas})
+def resenas(request):
+    return render(request, 'AppBlog/resenas.html')
 
-# Detalles de una reseña específica
-def detalles_resena(request, resena_id):
-    resena = Resena.objects.get(id=resena_id)
-    return render(request, 'detalles_resena.html', {'resena': resena})
-
-# Listar todos los comentarios de una reseña específica
-def lista_comentarios(request, resena_id):
-    comentarios = Comentario.objects.filter(resena_id=resena_id)
-    return render(request, 'lista_comentarios.html', {'comentarios': comentarios})
+def about(request):  # Nueva función de vista para la página 'About'
+    return render(request, 'AppBlog/about.html')
 
 
-def detalles_pelicula(request, pelicula_id):
-    # Simulate a database query to get details of a specific movie
-    pelicula = Pelicula.objects.get(id=pelicula_id)
-    
-    # Pass the movie details to the template
-    context = {
-        'pelicula': pelicula
-    }
-    
-    return render(request, 'AppBlog/detalles_pelicula.html', context)
