@@ -15,7 +15,7 @@ def lista_blogs(request):
 
 
 def inicio(request):
-    blogs = Blog.objects.all()  # Falta esta línea
+    blogs = Blog.objects.all()  
     return render(request, 'AppBlog/index.html', {'blogs': blogs})
 
 def peliculas(request):
