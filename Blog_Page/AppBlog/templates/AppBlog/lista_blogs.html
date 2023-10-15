@@ -6,85 +6,17 @@
 
 {% block main %}
 <div style="height: 50px;"></div> 
-<!-- Películas -->
 <div class="container mt-5">
-  <div class="row">
-      <div class="col-md-12">
-          <h2>Películas</h2>
-          <p>Descripción breve de las películas... (puedes añadir un breve resumen o eliminar esto).</p>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-6">
-          <div class="card mb-4">
-              <img src="{% static 'AppBlog/images/peliculas.webp' %}" alt="Descripción de la imagen">
-              <div class="card-body">
-                  <h5 class="card-title">Título del Post</h5>
-                  <p class="card-text">Descripción breve del post...</p>
-                  <a href="{% url 'peliculas' %}" class="btn btn-primary">Leer más</a>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-
-<div class="container mt-5">
-  <!-- Categorías -->
-  <div class="row">
-      <div class="col-md-12">
-          <h2>Categorías</h2>
-          <p>Descripción breve de las categorías... (puedes añadir un breve resumen o eliminar esto).</p>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-6">
-          <div class="card mb-4">
-              <img src="{% static 'AppBlog/images/categorias.webp' %}" alt="Descripción de la imagen">
-              <div class="card-body">
-                  <h5 class="card-title">Título del Post</h5>
-                  <p class="card-text">Descripción breve del post...</p>
-                  <a href="{% url 'categorias' %}" class="btn btn-primary">Leer más</a>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- Reseñas -->
-  <div class="row mt-5">
-      <div class="col-md-12">
-          <h2>Reseñas</h2>
-          <p>Descripción breve de las reseñas... (puedes añadir un breve resumen o eliminar esto).</p>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-6">
-          <div class="card mb-4">
-              <img src="{% static 'AppBlog/images/resenas.jpg' %}" alt="Descripción de la imagen">
-              <div class="card-body">
-                  <h5 class="card-title">Título del Post</h5>
-                  <p class="card-text">Descripción breve del post...</p>
-                  <a href="{% url 'resenas' %}" class="btn btn-primary">Leer más</a>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- About -->
-  <div class="row mt-5">
-      <div class="col-md-12">
-          <h2>About</h2>
-          <p>Descripción breve sobre el sitio y el autor... (puedes añadir un breve resumen o eliminar esto).</p>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-6">
-          <div class="card mb-4">
-              <img src="" alt="Descripción de la imagen">
-              <div class="card-body">
-                  <h5 class="card-title">Título del Post</h5>
-                  <p class="card-text">Descripción breve del post...</p>
-                  <a href="{% url 'about' %}" class="btn btn-primary">Leer más</a>
-              </div>
-          </div>
-      </div>
-  </div>
+    <h2>Blogs</h2>
+    {% for blog in blogs %}
+        <div class="card mb-4">
+            <img src="{{ blog.imagen }}" alt="{{ blog.titulo }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ blog.titulo }}</h5>
+                <p class="card-text">{{ blog.resumen }}</p>
+                <a href="{% url 'detalle_blog' blog.id %}" class="btn btn-primary">Leer más</a>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock main %}
