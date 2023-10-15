@@ -42,10 +42,13 @@ class Mensaje(models.Model):
     
 class Blog(models.Model):
     titulo = models.CharField(max_length=255)
-    resumen = models.TextField()
+    subtitulo = models.CharField(max_length=255, blank=True, null=True)
+    resumen = models.TextField(blank=True, null=True)  # Si lo necesitas, puedes mantenerlo
     contenido = models.TextField()
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)  # Agregado
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+    imagen = models.ImageField(upload_to='blogs/')  # Agregado
 
     def __str__(self):
         return self.titulo
