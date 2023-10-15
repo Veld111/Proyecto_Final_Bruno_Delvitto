@@ -8,5 +8,6 @@ def redirect_to_appblog(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('AppBlog/', include('AppBlog.urls')),  # Asegúrate de que ya tienes esto en tu archivo urls.py
+    path('Usuarios/', include('Usuarios.urls')),
     path('', redirect_to_appblog),
 ]

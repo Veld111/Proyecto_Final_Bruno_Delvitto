@@ -1,0 +1,17 @@
+{% extends 'AppBlog/base.html' %}
+
+{% block title %} Registro de Usuarios {% endblock title %}
+
+{% block main %}
+    <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column">
+            <h1>Registro de Usuarios</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ formulario.as_p }}
+                <button type="submit">Registrar</button>
+            </form>
+            <a href="{% url 'iniciar_sesion' %}">Ya tengo una cuenta</a>
+        </div>
+    </div>
+{% endblock main %}

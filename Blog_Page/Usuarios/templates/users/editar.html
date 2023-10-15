@@ -1,0 +1,13 @@
+{% extends 'AppBlog/base.html' %}
+
+{% block title %} Editar Perfil {% endblock title %}
+
+{% block main %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ formulario_edicion.as_table }}
+        </table>
+        <button type="submit">Actualizar</button>
+    </form>
+{% endblock main %}
