@@ -7,7 +7,7 @@
 {% block main %}
 <div class="container mt-5">
     <h1>{{ blog.titulo }}</h1>
-    <img src="{{ blog.imagen }}" alt="{{ blog.titulo }}" class="img-fluid mb-3">
+    <img src="{{ blog.imagen.url }}" alt="{{ blog.titulo }}" class="img-fluid mb-3">
     <p><strong>Fecha de Creación:</strong> {{ blog.fecha_creacion }}</p>
     <div>
         {{ blog.contenido|linebreaks }}
