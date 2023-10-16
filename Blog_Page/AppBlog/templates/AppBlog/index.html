@@ -7,11 +7,4 @@
 {% block main %}
 <!-- Aquí tu contenido existente -->
 
-<!-- Aquí añadir la lista de blogs -->
-{% for blog in blogs %}
-  <h2>{{ blog.titulo }}</h2>
-  <p>{{ blog.resumen }}</p>
-  <a href="{% url 'detalle_blog' blog.id %}">Leer más</a>
-{% endfor %}
-
 {% endblock main %}

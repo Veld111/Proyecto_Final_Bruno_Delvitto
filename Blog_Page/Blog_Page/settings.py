@@ -90,7 +90,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_URL = '/Usuarios/iniciar_sesion/'
+LOGIN_URL = '/Usuarios/login/'
 LOGOUT_REDIRECT_URL = '/'
 
 

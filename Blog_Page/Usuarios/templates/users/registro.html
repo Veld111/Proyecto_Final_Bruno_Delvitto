@@ -1,5 +1,7 @@
 {% extends 'AppBlog/base.html' %}
 
+{% load static %}
+
 {% block title %} Registro de Usuarios {% endblock title %}
 
 {% block main %}
@@ -11,7 +13,7 @@
                 {{ formulario.as_p }}
                 <button type="submit">Registrar</button>
             </form>
-            <a href="{% url 'iniciar_sesion' %}">Ya tengo una cuenta</a>
+            <a href="{% url 'login' %}">Ya tengo una cuenta</a>
         </div>
     </div>
 {% endblock main %}

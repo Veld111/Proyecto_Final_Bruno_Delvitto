@@ -1,10 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Pelicula, Resena, Comentario, Blog
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import redirect
 from .forms import BlogForm
+from .models import Pelicula, Resena, Comentario, Blog
 
 # Comprobar si el usuario es administrador
 def es_admin(user):

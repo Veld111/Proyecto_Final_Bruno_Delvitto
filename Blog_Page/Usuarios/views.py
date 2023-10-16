@@ -1,36 +1,88 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from Usuarios.forms import UserEditForm, UserRegisterForm
 
 
-def registro(request):
+def login_request(request):
+    msg_login = ""
     if request.method == 'POST':
-        formulario = UserCreationForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            return redirect('iniciar_sesion')
-    else:
-        formulario = UserCreationForm()
-    return render(request, 'Usuarios/registro.html', {'formulario': formulario})
+        form = AuthenticationForm(request, data=request.POST)
 
+        if form.is_valid():
+            usuario = form.cleaned_data.get('username')
+            contrasenia = form.cleaned_data.get('password')
+            user = authenticate(request, username=usuario, password=contrasenia)
 
+            if user is not None:
+                login(request, user)
+                # Aquí cambias "AppCoder/index.html" por la plantilla a la que deseas redirigir tras un inicio de sesión exitoso.
+                return render(request, "Usuarios/perfil.html")  
 
-def iniciar_sesion(request):
+            msg_login = "Usuario o contraseña incorrectos"
+
+    form = AuthenticationForm()
+    # Aquí cambias "users/login.html" por la plantilla que estás utilizando para el inicio de sesión.
+    return render(request, "Usuarios/login.html", {"form": form, "msg_login": msg_login})
+
+# Vista de registro
+def register(request):
+    msg_register = ""
     if request.method == 'POST':
-        nombre_usuario = request.POST['username']
-        contraseña = request.POST['password']
-        usuario = authenticate(request, username=nombre_usuario, password=contraseña)
-        if usuario is not None:
-            login(request, usuario)
-            return redirect('perfil')
-    return render(request, 'Usuarios/iniciar_sesion.html')
 
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            # Si los datos ingresados en el form son válidos, con form.save()
+            # creamos un nuevo user usando esos datos
+            form.save()
+            return render(request,"AppBlog/index.html")
+        
+        msg_register = "Error en los datos ingresados"
 
+    form = UserRegisterForm()     
+    return render(request,"Usuarios/registro.html" ,  {"form":form, "msg_register": msg_register})
 
 @login_required
-def perfil(request):
-    return render(request, 'Usuarios/perfil.html')
+def edit(request):
+    usuario = request.user
 
+    if request.method == 'POST':
+        miFormulario = UserEditForm(request.POST)
 
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            # Verificamos si las contraseñas son iguales
+            if informacion["password1"] != informacion["password2"]:
+                datos = {
+                    'first_name': usuario.first_name,
+                    'email': usuario.email
+                }
+                miFormulario = UserEditForm(initial=datos)
+            else:
+                # Actualizamos los datos del usuario
+                usuario.email = informacion['email']
+                if informacion["password1"]:
+                    usuario.set_password(informacion["password1"])
+                usuario.last_name = informacion['last_name']
+                usuario.first_name = informacion['first_name']
+                usuario.save()
+
+                # Redirigimos al usuario a la página principal
+                return render(request, "AppBlog/index.html")
+        else:
+            datos = {
+                'first_name': usuario.first_name,
+                'email': usuario.email
+            }
+            miFormulario = UserEditForm(initial=datos)
+    else:
+        datos = {
+            'first_name': usuario.first_name,
+            'email': usuario.email
+        }
+        miFormulario = UserEditForm(initial=datos)
+
+    return render(request, "Usuarios/editar.html", {"mi_form": miFormulario, "usuario": usuario})
 
