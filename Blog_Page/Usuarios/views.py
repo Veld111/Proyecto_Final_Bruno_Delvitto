@@ -18,7 +18,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 # Aquí cambias "AppCoder/index.html" por la plantilla a la que deseas redirigir tras un inicio de sesión exitoso.
-                return render(request, "Usuarios/perfil.html")  
+                return render(request, "AppBlog/index.html")  
 
             msg_login = "Usuario o contraseña incorrectos"
 
