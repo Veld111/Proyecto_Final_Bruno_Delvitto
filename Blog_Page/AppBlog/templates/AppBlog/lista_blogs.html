@@ -6,17 +6,31 @@
 
 {% block main %}
 <div style="height: 50px;"></div> 
-<div class="container mt-5">
-    <h2>Blogs</h2>
+
+<div class="container mt-5" style="max-width: 600px; overflow: hidden;">
+
+    <!-- Título centrado -->
+    <h2 class="text-center">Blogs</h2>
+
     {% for blog in blogs %}
-        <div class="card mb-4">
-            <img src="{{ blog.imagen.url }}" alt="{{ blog.titulo }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ blog.titulo }}</h5>
-                <p class="card-text">{{ blog.resumen }}</p>
-                <a href="{% url 'detalle_blog' blog.id %}" class="btn btn-primary">Leer más</a>
-            </div>
+    <div class="card mb-4" style="float: left; width: 100%;">
+        {% if blog.imagen %}
+            <!-- Imagen -->
+            <img src="{{ blog.imagen.url }}" alt="{{ blog.titulo }}" style="width: 100%; height: auto;">
+        {% else %}
+            <!-- Opción 1: Muestra una imagen por defecto -->
+            <img src="{{ blog.imagen.url }}" alt="Imagen del blog" style="width: 100%; height: auto;">
+            <!-- Opción 2: Simplemente no mostrar una imagen -->
+        {% endif %}
+        
+        <div class="card-body">
+            <h5 class="card-title">{{ blog.titulo }}</h5>
+            <p class="card-text">{{ blog.resumen }}</p>
+            <p class="card-text"><small class="text-muted">{{ blog.fecha_creacion|date:"d M Y" }}</small></p>
+            <a href="{% url 'detalle_blog' blog.id %}" class="btn btn-primary">Leer más</a>
         </div>
+    </div>
     {% endfor %}
 </div>
+
 {% endblock main %}

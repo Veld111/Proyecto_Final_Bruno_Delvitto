@@ -3,12 +3,8 @@
 {% block title %} Perfil de Usuario {% endblock title %}
 
 {% block main %}
-    <div class="d-flex justify-content-center">
-        <div class="d-flex flex-column">
-            <h1>Perfil de {{ request.user.username }}</h1>
-            <p>Email: {{ request.user.email }}</p>
-            <a href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a> | 
-            <a href="{% url 'registro' %}">Registrarse</a>
-        </div>
-    </div>
+{% if not request.user.is_authenticated %}
+    <a href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a> | 
+    <a href="{% url 'registro' %}">Registrarse</a>
+{% endif %}
 {% endblock main %}

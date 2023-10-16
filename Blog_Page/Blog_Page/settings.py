@@ -91,13 +91,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LOGIN_URL = '/Usuarios/iniciar_sesion/'
+LOGOUT_REDIRECT_URL = '/'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 

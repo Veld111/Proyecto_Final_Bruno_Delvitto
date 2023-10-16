@@ -13,7 +13,7 @@ urlpatterns = [
     path('AppBlog/', include('AppBlog.urls')),  # Asegúrate de que ya tienes esto en tu archivo urls.py
     path('Usuarios/', include('Usuarios.urls')),
     path('', redirect_to_appblog),  
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='Usuarios/iniciar_sesion.html'), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'), 
 ]
 
