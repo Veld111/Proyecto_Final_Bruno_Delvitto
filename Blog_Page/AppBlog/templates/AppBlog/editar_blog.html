@@ -1,0 +1,13 @@
+{% extends "AppBlog/base.html" %}
+
+{% load static %}
+
+{% block main %}
+<h2>Editar Blog</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Actualizar</button>
+</form>
+{% endblock %}

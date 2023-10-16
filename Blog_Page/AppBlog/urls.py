@@ -13,5 +13,8 @@ urlpatterns = [
     path('enviar_mensaje/<int:id_destinatario>/', views.enviar_mensaje, name='enviar_mensaje'),
     path('pages/', views.lista_blogs, name='lista_blogs'),
     path('pages/<int:pageId>/', views.detalle_blog, name='detalle_blog'),
+    path('blog/editar/<int:blog_id>/', views.editar_blog, name='editar_blog'),
+    path('blog/borrar/<int:blog_id>/', views.borrar_blog, name='borrar_blog'),
 ]
+
 

@@ -3,6 +3,28 @@ from .models import Pelicula, Resena, Comentario, Blog
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import redirect
+from .forms import BlogForm
+
+@login_required
+def editar_blog(request, blog_id):
+    blog = get_object_or_404(Blog, id=blog_id)
+    if request.method == "POST":
+        form = BlogForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid():
+            form.save()
+            return redirect('detalle_blog', pageId=blog_id)
+    else:
+        form = BlogForm(instance=blog)
+    return render(request, 'AppBlog/editar_blog.html', {'form': form, 'blog': blog})
+
+@login_required
+def borrar_blog(request, blog_id):
+    blog = get_object_or_404(Blog, id=blog_id)
+    if request.method == "POST":
+        blog.delete()
+        return redirect('lista_blogs')
+    return render(request, 'AppBlog/confirmar_borrado.html', {'blog': blog})
 
 
 def detalle_blog(request, pageId):

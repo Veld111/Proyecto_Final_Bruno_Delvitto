@@ -8,10 +8,15 @@
 <div class="container mt-5">
     <h1>{{ blog.titulo }}</h1>
     <img src="{{ blog.imagen }}" alt="{{ blog.titulo }}" class="img-fluid mb-3">
-    <p><strong>Fecha de Publicación:</strong> {{ blog.fecha_publicacion }}</p>
+    <p><strong>Fecha de Creación:</strong> {{ blog.fecha_creacion }}</p>
     <div>
         {{ blog.contenido|linebreaks }}
     </div>
+
+    <!-- Botones para editar y borrar el blog -->
+    <a href="{% url 'editar_blog' blog.id %}" class="btn btn-secondary mt-2">Editar Blog</a>
+    <a href="{% url 'borrar_blog' blog.id %}" class="btn btn-danger mt-2">Borrar Blog</a>
+
     <a href="{% url 'lista_blogs' %}" class="btn btn-primary mt-3">Volver a la lista</a>
 </div>
 {% endblock main %}

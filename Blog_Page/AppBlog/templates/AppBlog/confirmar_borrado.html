@@ -1,0 +1,16 @@
+{% extends 'AppBlog/base.html' %}
+
+{% load static %}
+
+{% block title %} Inicio {% endblock title %}
+
+{% block main %}
+<h2>¿Estás seguro de que deseas borrar el blog "{{ blog.titulo }}"?</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Borrar</button>
+</form>
+
+<a href="{% url 'detalle_blog' blog.id %}">Cancelar</a>
+{% endblock main %}
