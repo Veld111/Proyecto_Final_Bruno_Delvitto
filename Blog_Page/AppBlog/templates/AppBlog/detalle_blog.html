@@ -19,10 +19,8 @@
 
 <!-- Botones para editar y borrar el blog -->
 <div class="mt-3">
-    {% if request.user.is_authenticated and request.user.is_staff %}
-        <a href="{% url 'editar_blog' blog.id %}" class="btn btn-secondary">Editar Blog</a>
-        <a href="{% url 'borrar_blog' blog.id %}" class="btn btn-danger">Borrar Blog</a>
-    {% endif %}
+    <a href="{% url 'editar_blog' blog.id %}" class="btn btn-secondary">Editar Blog</a>
+    <a href="{% url 'borrar_blog' blog.id %}" class="btn btn-danger">Borrar Blog</a>
     <a href="{% url 'lista_blogs' %}" class="btn btn-primary mt-3">Volver a la lista</a>
 </div>
 </div>

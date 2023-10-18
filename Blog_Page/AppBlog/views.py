@@ -2,13 +2,17 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import BlogForm
 from .models import Pelicula, Resena, Comentario, Blog
+from django.contrib import messages
 
 # Comprobar si el usuario es administrador
-def es_admin(user):
-    return user.is_staff
+def es_admin(request):
+    if not request.user.is_staff:
+        messages.error(request, 'No tienes permisos de administrador para editar o borrar este blog.')
+    return request.user.is_staff
+
 
 @login_required
-@user_passes_test(es_admin)
+@user_passes_test(es_admin, login_url='login')
 def editar_blog(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
     if request.method == "POST":
@@ -21,7 +25,7 @@ def editar_blog(request, blog_id):
     return render(request, 'AppBlog/editar_blog.html', {'form': form, 'blog': blog})
 
 @login_required
-@user_passes_test(es_admin)
+@user_passes_test(es_admin, login_url='login')
 def borrar_blog(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
     if request.method == "POST":

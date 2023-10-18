@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from Usuarios.forms import UserEditForm, UserRegisterForm
-
+from django.shortcuts import redirect
 
 def login_request(request):
     msg_login = ""
@@ -17,8 +17,8 @@ def login_request(request):
 
             if user is not None:
                 login(request, user)
-                # Aquí cambias "AppCoder/index.html" por la plantilla a la que deseas redirigir tras un inicio de sesión exitoso.
-                return render(request, "AppBlog/index.html")  
+                next_url = request.GET.get('next', 'inicio')
+                return redirect(next_url)
 
             msg_login = "Usuario o contraseña incorrectos"
 
@@ -36,7 +36,7 @@ def register(request):
             # Si los datos ingresados en el form son válidos, con form.save()
             # creamos un nuevo user usando esos datos
             form.save()
-            return render(request,"AppBlog/index.html")
+            return redirect('inicio')
         
         msg_register = "Error en los datos ingresados"
 
@@ -70,7 +70,7 @@ def edit(request):
                 usuario.save()
 
                 # Redirigimos al usuario a la página principal
-                return render(request, "AppBlog/index.html")
+                return redirect('inicio')
         else:
             datos = {
                 'first_name': usuario.first_name,

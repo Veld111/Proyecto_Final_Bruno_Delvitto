@@ -5,9 +5,15 @@
 {% block title %} Iniciar Sesión {% endblock title %}
 
 {% block main %}
+
     <div class="d-flex justify-content-center">
         <div class="d-flex flex-column">
             <h1>Iniciar Sesión</h1>
+            <!-- Mostrando el mensaje de error aquí -->
+            {% if msg_login %}
+            <div class="alert alert-danger">{{ msg_login }}</div>
+            {% endif %}
+            
             <form method="post">
                 {% csrf_token %}
                 <label for="username">Nombre de usuario:</label>

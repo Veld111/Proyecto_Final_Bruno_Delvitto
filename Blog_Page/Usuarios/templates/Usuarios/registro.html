@@ -8,6 +8,12 @@
     <div class="d-flex justify-content-center">
         <div class="d-flex flex-column">
             <h1>Registro de Usuarios</h1>
+            
+            <!-- Mostrando el mensaje de error aquí -->
+            {% if msg_register %}
+            <div class="alert alert-danger">{{ msg_register }}</div>
+            {% endif %}  
+
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
