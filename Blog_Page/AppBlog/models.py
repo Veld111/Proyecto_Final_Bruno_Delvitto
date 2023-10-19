@@ -12,25 +12,6 @@ class Pelicula(models.Model):
     def __str__(self):
         return self.titulo
 
-class Resena(models.Model):
-    pelicula = models.ForeignKey(Pelicula, on_delete=models.CASCADE)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE)
-    contenido = models.TextField()
-    calificacion = models.IntegerField()
-    fecha_publicacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Reseña de {self.pelicula.titulo} por {self.autor.username}"
-
-class Comentario(models.Model):
-    resena = models.ForeignKey(Resena, on_delete=models.CASCADE)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE)
-    contenido = models.TextField()
-    fecha_publicacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Comentario de {self.autor.username} en {self.resena}"
-    
 class Mensaje(models.Model):
     remitente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mensajes_enviados')
     destinatario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mensajes_recibidos')

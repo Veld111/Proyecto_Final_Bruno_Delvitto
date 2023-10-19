@@ -1,15 +1,18 @@
 {% extends 'AppBlog/base.html' %}
 
+{% load static %}
+
 {% block title %} Perfil de Usuario {% endblock title %}
 
 {% block main %}
 {% if request.user.is_authenticated %}
     <h2>Perfil de {{ request.user.username }}</h2>
-{% if request.user.userprofile.avatar %}
-    <img src="{{ request.user.userprofile.avatar.url }}" alt="Avatar" width="100">
-{% else %}
-<!-- Muestra una imagen de avatar predeterminada o nada en absoluto -->
-{% endif %}
+    {% if request.user.userprofile.avatar %}
+        <img src="{{ request.user.userprofile.avatar.url }}" alt="Avatar" width="100">
+    {% else %}
+        <!-- En caso de que, por alguna razón, el avatar no esté configurado -->
+        <img src="{% static 'Blog_Page/media/avatar/generico.png' %}" alt="" width="100">
+    {% endif %}
     <!-- ... más detalles del perfil ... -->
     <a href="{% url 'editar' %}">Editar Perfil</a> | 
     <a href="{% url 'logout' %}">Desloguearse</a>
@@ -18,9 +21,3 @@
     <a href="{% url 'registro' %}">Registrarse</a>
 {% endif %}
 {% endblock main %}
-
-{% if request.user.userprofile.avatar %}
-    <img src="{{ request.user.userprofile.avatar.url }}" alt="Avatar" width="100">
-{% else %}
-    <!-- Muestra una imagen de avatar predeterminada o nada en absoluto -->
-{% endif %}
