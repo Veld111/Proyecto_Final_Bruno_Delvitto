@@ -1,9 +1,10 @@
-from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from Usuarios.forms import UserEditForm, UserRegisterForm
-from django.shortcuts import redirect
+from .models import UserProfile
 
 def login_request(request):
     msg_login = ""
@@ -16,6 +17,10 @@ def login_request(request):
             user = authenticate(request, username=usuario, password=contrasenia)
 
             if user is not None:
+
+                if not hasattr(user, 'userprofile'):
+                    UserProfile.objects.create(user=user)
+
                 login(request, user)
                 next_url = request.GET.get('next', 'inicio')
                 return redirect(next_url)
@@ -44,6 +49,10 @@ def register(request):
     return render(request,"Usuarios/registro.html" ,  {"form":form, "msg_register": msg_register})
 
 @login_required
+def profile(request):
+    return render(request, 'Usuarios/perfil.html')
+
+@login_required
 def edit(request):
     usuario = request.user
 
@@ -69,7 +78,7 @@ def edit(request):
                 usuario.first_name = informacion['first_name']
                 usuario.save()
 
-                # Redirigimos al usuario a la página principal
+                messages.success(request, "Perfil actualizado exitosamente!")
                 return redirect('inicio')
         else:
             datos = {
@@ -85,4 +94,8 @@ def edit(request):
         miFormulario = UserEditForm(initial=datos)
 
     return render(request, "Usuarios/editar.html", {"mi_form": miFormulario, "usuario": usuario})
+
+def logout_request(request):
+    logout(request)
+    return render(request, "Usuarios/logout.html")
 
