@@ -3,8 +3,11 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from Usuarios.forms import UserEditForm, UserRegisterForm
+from .forms import AvatarUploadForm
 from .models import UserProfile
+from Usuarios.forms import UserEditForm, UserRegisterForm
+
+
 
 def login_request(request):
     msg_login = ""
@@ -50,7 +53,25 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'Usuarios/perfil.html')
+    print("Vista de perfil accedida")  # Para confirmar que la vista se accede correctamente
+
+    if request.method == 'POST':
+        print("Se recibió una solicitud POST")
+
+        form = AvatarUploadForm(request.POST, request.FILES, instance=request.user.userprofile)
+
+        if form.is_valid():
+            form.save()
+            return redirect('perfil')  # redirige de nuevo al perfil tras guardar
+    else:
+        print("Solicitud GET o de otro tipo")
+        form = AvatarUploadForm(instance=request.user.userprofile)
+
+    context = {
+        'form': form  # Añade el formulario al contexto para renderizarlo en el template
+    }
+    return render(request, 'Usuarios/perfil.html', context)
+
 
 @login_required
 def edit(request):
