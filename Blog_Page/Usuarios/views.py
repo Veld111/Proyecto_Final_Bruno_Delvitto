@@ -1,8 +1,12 @@
-from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import AvatarUploadForm
+from .models import UserProfile
 from Usuarios.forms import UserEditForm, UserRegisterForm
+
 
 
 def login_request(request):
@@ -16,9 +20,13 @@ def login_request(request):
             user = authenticate(request, username=usuario, password=contrasenia)
 
             if user is not None:
+
+                if not hasattr(user, 'userprofile'):
+                    UserProfile.objects.create(user=user)
+
                 login(request, user)
-                # Aquí cambias "AppCoder/index.html" por la plantilla a la que deseas redirigir tras un inicio de sesión exitoso.
-                return render(request, "AppBlog/index.html")  
+                next_url = request.GET.get('next', 'inicio')
+                return redirect(next_url)
 
             msg_login = "Usuario o contraseña incorrectos"
 
@@ -36,12 +44,34 @@ def register(request):
             # Si los datos ingresados en el form son válidos, con form.save()
             # creamos un nuevo user usando esos datos
             form.save()
-            return render(request,"AppBlog/index.html")
+            return redirect('inicio')
         
         msg_register = "Error en los datos ingresados"
 
     form = UserRegisterForm()     
     return render(request,"Usuarios/registro.html" ,  {"form":form, "msg_register": msg_register})
+
+@login_required
+def profile(request):
+    print("Vista de perfil accedida")  # Para confirmar que la vista se accede correctamente
+
+    if request.method == 'POST':
+        print("Se recibió una solicitud POST")
+
+        form = AvatarUploadForm(request.POST, request.FILES, instance=request.user.userprofile)
+
+        if form.is_valid():
+            form.save()
+            return redirect('perfil')  # redirige de nuevo al perfil tras guardar
+    else:
+        print("Solicitud GET o de otro tipo")
+        form = AvatarUploadForm(instance=request.user.userprofile)
+
+    context = {
+        'form': form  # Añade el formulario al contexto para renderizarlo en el template
+    }
+    return render(request, 'Usuarios/perfil.html', context)
+
 
 @login_required
 def edit(request):
@@ -69,8 +99,8 @@ def edit(request):
                 usuario.first_name = informacion['first_name']
                 usuario.save()
 
-                # Redirigimos al usuario a la página principal
-                return render(request, "AppBlog/index.html")
+                messages.success(request, "Perfil actualizado exitosamente!")
+                return redirect('inicio')
         else:
             datos = {
                 'first_name': usuario.first_name,
@@ -85,4 +115,8 @@ def edit(request):
         miFormulario = UserEditForm(initial=datos)
 
     return render(request, "Usuarios/editar.html", {"mi_form": miFormulario, "usuario": usuario})
+
+def logout_request(request):
+    logout(request)
+    return render(request, "Usuarios/logout.html")
 

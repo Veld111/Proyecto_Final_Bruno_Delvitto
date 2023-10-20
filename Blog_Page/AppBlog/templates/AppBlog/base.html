@@ -9,26 +9,53 @@
     <link href="{% static 'AppBlog/css/styles.css' %}" rel="stylesheet" />
 </head>
 <body id="page-top">
-    <!-- Navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'peliculas' %}">Películas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'categorias' %}">Categorías</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'resenas' %}">Reseñas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'lista_blogs' %}">Blogs</a></li>
+    
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+<!-- Navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto"> <!-- Modificación: Añadir "mr-auto" para empujar contenido a la derecha -->
+                <li class="nav-item"><a class="nav-link" href="{% url 'peliculas' %}">Películas</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'lista_blogs' %}">Blogs</a></li>
+            </ul>
+            <ul class="navbar-nav"> <!-- Nuevo ul para separar la sección de perfil -->
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'perfil' %}">
+                            {% if user.userprofile.avatar %}
+                                <img src="{{ user.userprofile.avatar.url }}" alt="" style="width:30px; height:30px; border-radius:50%; margin-right:10px;">
+                            {% else %}
+                                <img src="{% static 'Blog_Page/media/avatar/generico.png' %}" alt="" style="width:30px; height:30px; border-radius:50%; margin-right:10px;">
+                            {% endif %}
+                            {{ user.username }}
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Desloguearse</a></li>
+                {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Crear cuenta</a></li>
-                </ul>
-            </div>
+                {% endif %}
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
+
+
     {% block main %}
     <div class="mt-5"> 
     {% endblock main %}
