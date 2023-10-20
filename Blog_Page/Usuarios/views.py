@@ -57,7 +57,7 @@ def edit(request):
     usuario = request.user
 
     if request.method == 'POST':
-        miFormulario = UserEditForm(request.POST)
+        miFormulario = UserEditForm(request.POST, request.FILES, instance=usuario)
 
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
@@ -77,6 +77,12 @@ def edit(request):
                 usuario.last_name = informacion['last_name']
                 usuario.first_name = informacion['first_name']
                 usuario.save()
+
+                # Código para guardar el avatar si ha sido modificado
+                if 'avatar' in miFormulario.changed_data:
+                    perfil = usuario.userprofile
+                    perfil.avatar = miFormulario.cleaned_data['avatar']
+                    perfil.save()
 
                 messages.success(request, "Perfil actualizado exitosamente!")
                 return redirect('inicio')

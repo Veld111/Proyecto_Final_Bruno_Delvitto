@@ -13,6 +13,12 @@
         <!-- En caso de que, por alguna razón, el avatar no esté configurado -->
         <img src="{% static 'Blog_Page/media/avatar/generico.png' %}" alt="" width="100">
     {% endif %}
+    <!-- Código para subir avatar -->
+    <form method="post" enctype="multipart/form-data">
+        {{ mi_form.avatar.label }}: {{ mi_form.avatar }}
+        <input type="submit" value="Subir Avatar">
+        {% csrf_token %}
+    </form>
     <!-- ... más detalles del perfil ... -->
     <a href="{% url 'editar' %}">Editar Perfil</a> | 
     <a href="{% url 'logout' %}">Desloguearse</a>
