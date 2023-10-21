@@ -8,33 +8,25 @@ Enviar Mensaje
 
 {% block main %}
 <h2>Enviar Mensaje</h2>
-<form method="post">
+<form method="post" novalidate>
     {% csrf_token %}
     
     <!-- Destinatario -->
     <div class="form-group">
-        {% if not form.destinatario.value %}
-            <label for="{{ form.destinatario.id_for_label }}">Destinatario:</label>
-            {{ form.destinatario }}
-            {% if form.cuerpo.errors and form.data %}
-                <div class="alert alert-danger">
-                    {{ form.destinatario.errors|join:", " }}
-                </div>
-            {% endif %}
-        {% else %}
+        {% if form.destinatario.value or form.is_bound %}
             <input type="hidden" name="{{ form.destinatario.name }}" value="{{ form.destinatario.value }}">
+        {% else %}
+            <label for="{{ form.destinatario.id_for_label }}">Destinatario:</label>
+            {{ form.destinatario.errors.as_text }}
+            {{ form.destinatario }}
         {% endif %}
     </div>
 
     <!-- Asunto -->
     <div class="form-group">
         <label for="{{ form.cuerpo.id_for_label }}">Asunto:</label>
+        {{ form.cuerpo.errors.as_text }}
         {{ form.cuerpo }}
-        {% if form.cuerpo.errors and form.is_bound %}
-            <div class="alert alert-danger">
-                {{ form.cuerpo.errors|join:", " }}
-            </div>
-        {% endif %}
     </div>
 
     <button type="submit" class="btn btn-primary">Enviar</button>
