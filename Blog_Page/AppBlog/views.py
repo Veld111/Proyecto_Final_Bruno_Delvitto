@@ -66,12 +66,6 @@ def inicio(request):
 def peliculas(request):
     return render(request, 'AppBlog/peliculas.html')
 
-def categorias(request):
-    return render(request, 'AppBlog/categorias.html')
-
-def resenas(request):
-    return render(request, 'AppBlog/resenas.html')
-
 def about(request):  # Nueva función de vista para la página 'About'
     return render(request, 'AppBlog/about.html')
 

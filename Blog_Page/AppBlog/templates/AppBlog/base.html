@@ -8,7 +8,8 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'AppBlog/css/styles.css' %}" rel="stylesheet" />
 </head>
-<body id="page-top">
+<body id="page-top" style="padding-top: 4.5rem;">
+
     
     {% if messages %}
     <div class="messages">
@@ -57,7 +58,8 @@
 
 
     {% block main %}
-    <div class="mt-5"> 
+    <div style="margin-top: 5rem;"> 
+
     {% endblock main %}
     <!-- Pie de página -->
     <footer class="py-5 bg-dark">

@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.db import models
 from django.contrib.auth.models import User
 from django import forms
 from .models import UserProfile
@@ -9,10 +8,11 @@ class UserEditForm(forms.ModelForm):
 
     password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput, required=False)
     password2 = forms.CharField(label='Repetir la contraseña', widget=forms.PasswordInput, required=False)
+    avatar = forms.ImageField(required=False)
 
     class Meta:
         model = User
-        fields = ['email', 'last_name', 'first_name']
+        fields = ['email', 'last_name', 'first_name', 'avatar']
 
     def clean(self):
         cleaned_data = super().clean()
