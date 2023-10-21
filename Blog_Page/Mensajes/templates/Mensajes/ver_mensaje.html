@@ -12,7 +12,7 @@ Ver Mensaje
 <p><small>Enviado el: {{ mensaje.fecha_envio }}</small></p>
 
 <hr>
-
+<form method="post" action="{% url 'enviar_mensaje' %}">
 <form method="post" action="{% url 'responder_mensaje' mensaje.id %}">
     {% csrf_token %}
     {{ form.as_p }}

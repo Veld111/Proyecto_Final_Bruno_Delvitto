@@ -16,7 +16,7 @@ Enviar Mensaje
         {% if not form.destinatario.value %}
             <label for="{{ form.destinatario.id_for_label }}">Destinatario:</label>
             {{ form.destinatario }}
-            {% if form.destinatario.errors and form.is_bound %}
+            {% if form.cuerpo.errors and form.data %}
                 <div class="alert alert-danger">
                     {{ form.destinatario.errors|join:", " }}
                 </div>
