@@ -1,0 +1,29 @@
+{% extends 'AppBlog/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Lista de Mensajes
+{% endblock title %}
+
+{% block main %}
+<h2>Mis mensajes</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Remitente</th>
+            <th>Fecha</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mensaje in mensajes %}
+        <tr>
+            <td>{{ mensaje.remitente.username }}</td>
+            <td>{{ mensaje.fecha_envio }}</td>
+            <td><a href="{% url 'ver_mensaje' mensaje.id %}">Ver detalle</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock main %}

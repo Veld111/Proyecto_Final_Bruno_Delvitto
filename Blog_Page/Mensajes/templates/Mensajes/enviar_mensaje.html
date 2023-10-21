@@ -1,0 +1,38 @@
+{% extends 'AppBlog/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Enviar Mensaje
+{% endblock title %}
+
+{% block main %}
+<h2>Enviar Mensaje</h2>
+<form method="post">
+    {% csrf_token %}
+    
+    <!-- Destinatario -->
+    <div class="form-group">
+        <label for="{{ form.destinatario.id_for_label }}">Destinatario:</label>
+        {{ form.destinatario }}
+        {% if form.destinatario.errors and form.data %}
+            <div class="alert alert-danger">
+                {{ form.destinatario.errors|join:", " }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Asunto -->
+    <div class="form-group">
+        <label for="{{ form.cuerpo.id_for_label }}">Asunto:</label>
+        {{ form.cuerpo }}
+        {% if form.cuerpo.errors and form.data %}
+            <div class="alert alert-danger">
+                {{ form.cuerpo.errors|join:", " }}
+            </div>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock main %}

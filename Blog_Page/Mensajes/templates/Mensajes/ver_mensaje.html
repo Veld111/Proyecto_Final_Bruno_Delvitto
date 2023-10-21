@@ -1,0 +1,23 @@
+{% extends 'AppBlog/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Ver Mensaje
+{% endblock title %}
+
+{% block main %}
+<h2>Mensaje de {{ mensaje.remitente.username }}</h2>
+<p>{{ mensaje.cuerpo }}</p>
+<p><small>Enviado el: {{ mensaje.fecha_envio }}</small></p>
+
+<hr>
+
+<h3>Responder</h3>
+<form method="post" action="{% url 'enviar_mensaje' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Responder</button>
+</form>
+
+{% endblock main %}

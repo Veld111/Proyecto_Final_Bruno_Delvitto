@@ -1,6 +1,4 @@
 from django.contrib import admin
-from .models import Pelicula, Blog, Mensaje
-
+from .models import Pelicula, Blog 
 admin.site.register(Pelicula)
-admin.site.register(Mensaje)
 admin.site.register(Blog)

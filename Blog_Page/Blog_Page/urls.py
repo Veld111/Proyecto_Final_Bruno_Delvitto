@@ -10,6 +10,7 @@ def redirect_to_appblog(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('AppBlog/', include('AppBlog.urls')),
+    path('Mensajes', include('Mensajes.urls')),
     path('Usuarios/', include('Usuarios.urls')),
     path('', redirect_to_appblog),
 ]

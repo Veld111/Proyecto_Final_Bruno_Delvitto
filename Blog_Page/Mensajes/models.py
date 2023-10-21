@@ -6,3 +6,6 @@ class Mensaje(models.Model):
     destinatario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='destinatario')
     cuerpo = models.TextField()
     fecha_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Mensaje de {self.remitente} para {self.destinatario}"

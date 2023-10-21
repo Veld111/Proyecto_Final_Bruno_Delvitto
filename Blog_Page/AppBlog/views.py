@@ -1,12 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import BlogForm
-from .models import Pelicula, Blog
+from .models import Blog
 
 # Comprobar si el usuario es administrador
 def es_admin(user):
     return user.is_staff
-
 
 @login_required
 @user_passes_test(es_admin)
@@ -36,19 +35,6 @@ def borrar_blog(request, blog_id):
 def crear_blog(request):
     pass
     # Tu lógica para crear una película
-
-
-@login_required
-def mensajes(request):
-    pass
-    # Tu lógica para mostrar mensajes
-
-@login_required
-def enviar_mensaje(request, id_destinatario):
-    pass
-    # Tu lógica para enviar un nuevo mensaje
-
-
 
 def detalle_blog(request, pageId):
     blog = get_object_or_404(Blog, id=pageId)
