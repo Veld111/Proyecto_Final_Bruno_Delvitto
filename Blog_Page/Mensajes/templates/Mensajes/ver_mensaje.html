@@ -13,11 +13,13 @@ Ver Mensaje
 
 <hr>
 
-<h3>Responder</h3>
-<form method="post" action="{% url 'enviar_mensaje' %}">
+<form method="post" action="{% url 'responder_mensaje' mensaje.id %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Responder</button>
 </form>
 
 {% endblock main %}
+
+
+

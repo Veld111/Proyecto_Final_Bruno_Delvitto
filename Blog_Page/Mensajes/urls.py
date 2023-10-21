@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('messages/', views.lista_mensajes, name='lista_mensajes'),
-    path('messages/send/', views.enviar_mensaje, name='enviar_mensaje'),
-    path('messages/<int:id>/', views.ver_mensaje, name='ver_mensaje'),
+    path('lista_mensaje/', views.lista_mensajes, name='lista_mensajes'),
+    path('enviar_mensaje/', views.enviar_mensaje, name='enviar_mensaje'),
+    path('enviar_mensaje/<int:respuesta_a_id>/', views.enviar_mensaje, name='responder_mensaje'),
+    path('ver_mensaje/<int:id_mensaje>/', views.ver_mensaje, name='ver_mensaje'),
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Mensaje
 from .forms import MensajeForm
 from django.contrib.auth.decorators import login_required
@@ -9,8 +9,12 @@ def lista_mensajes(request):
     return render(request, 'Mensajes/lista_mensajes.html', {'mensajes': mensajes})
 
 @login_required
-def enviar_mensaje(request):
-    if request.method == "POST":
+def enviar_mensaje(request, respuesta_a_id=None):
+    # Si estamos respondiendo a un mensaje
+    if respuesta_a_id:
+        mensaje_original = Mensaje.objects.get(id=respuesta_a_id)
+        form = MensajeForm(initial={'destinatario': mensaje_original.remitente})
+    elif request.method == "POST":
         form = MensajeForm(request.POST)
         if form.is_valid():
             mensaje = form.save(commit=False)
@@ -19,9 +23,12 @@ def enviar_mensaje(request):
             return redirect('lista_mensajes')
     else:
         form = MensajeForm()
+
     return render(request, 'Mensajes/enviar_mensaje.html', {'form': form})
 
+
 @login_required
-def ver_mensaje(request, id):
-    mensaje = Mensaje.objects.get(id=id)
+def ver_mensaje(request, id_mensaje):
+    mensaje = get_object_or_404(Mensaje, pk=id_mensaje)
     return render(request, 'Mensajes/ver_mensaje.html', {'mensaje': mensaje})
+

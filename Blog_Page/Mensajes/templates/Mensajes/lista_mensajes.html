@@ -8,6 +8,10 @@ Lista de Mensajes
 
 {% block main %}
 <h2>Mis mensajes</h2>
+
+<!-- Botón para crear un nuevo mensaje -->
+<a href="{% url 'enviar_mensaje' %}" class="btn btn-primary mb-3">Crear nuevo mensaje</a>
+
 <table class="table">
     <thead>
         <tr>
