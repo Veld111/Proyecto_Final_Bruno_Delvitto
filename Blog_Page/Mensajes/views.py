@@ -13,18 +13,28 @@ def enviar_mensaje(request, respuesta_a_id=None):
     # Si estamos respondiendo a un mensaje
     if respuesta_a_id:
         mensaje_original = Mensaje.objects.get(id=respuesta_a_id)
-        form = MensajeForm(initial={'destinatario': mensaje_original.remitente})
-    elif request.method == "POST":
-        form = MensajeForm(request.POST)
-        if form.is_valid():
-            mensaje = form.save(commit=False)
-            mensaje.remitente = request.user
-            mensaje.save()
-            return redirect('lista_mensajes')
+        if request.method == "POST":
+            form = MensajeForm(request.POST)
+            if form.is_valid():
+                mensaje = form.save(commit=False)
+                mensaje.remitente = request.user
+                mensaje.save()
+                return redirect('lista_mensajes')
+        else:
+            form = MensajeForm(initial={'destinatario': mensaje_original.remitente})
     else:
-        form = MensajeForm()
+        if request.method == "POST":
+            form = MensajeForm(request.POST)
+            if form.is_valid():
+                mensaje = form.save(commit=False)
+                mensaje.remitente = request.user
+                mensaje.save()
+                return redirect('lista_mensajes')
+        else:
+            form = MensajeForm()
 
     return render(request, 'Mensajes/enviar_mensaje.html', {'form': form})
+
 
 
 @login_required

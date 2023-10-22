@@ -8,7 +8,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'AppBlog/css/styles.css' %}" rel="stylesheet" />
 </head>
-<body id="page-top" style="padding-top: 4.5rem;">
+<body id="page-top" style="padding-top: 6rem;"> <!-- Modificado padding-top -->
 
     {% if messages %}
     <div class="messages">
@@ -58,7 +58,7 @@
 </nav>
 
     {% block main %}
-    <div style="margin-top: 5rem;"> 
+    <div style="margin: 5rem 0;"> <!-- Modificado el estilo para agregar margen inferior -->
 
     {% endblock main %}
     <!-- Pie de página -->
