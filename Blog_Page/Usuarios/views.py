@@ -68,12 +68,14 @@ def profile(request):
     else:
         print("Solicitud GET o de otro tipo")
         form = AvatarUploadForm(instance=request.user.userprofile)
-
+    
     perfil = request.user.userprofile
+    es_mismo_usuario = True
     context = {
         'form': form,
         'usuario': request.user,
-        'perfil': perfil
+        'perfil': perfil,
+        'es_mismo_usuario': es_mismo_usuario
     }
     return render(request, 'Usuarios/perfil.html', context)
 

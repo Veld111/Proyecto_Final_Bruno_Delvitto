@@ -21,10 +21,6 @@
     {% if es_mismo_usuario %}
     <a href="{% url 'editar' %}">Editar Perfil</a> |
     {% endif %}
-    <a href="{% url 'logout' %}">Desloguearse</a>
-{% else %}
-    <a href="{% url 'login' %}">Iniciar Sesión</a> |
-    <a href="{% url 'register' %}">Registrarse</a>
 {% endif %}
 
 {% endblock main %}
