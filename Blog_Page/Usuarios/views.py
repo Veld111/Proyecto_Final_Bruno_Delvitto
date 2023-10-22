@@ -69,8 +69,11 @@ def profile(request):
         print("Solicitud GET o de otro tipo")
         form = AvatarUploadForm(instance=request.user.userprofile)
 
+    perfil = request.user.userprofile
     context = {
-        'form': form  # Añade el formulario al contexto para renderizarlo en el template
+        'form': form,
+        'usuario': request.user,
+        'perfil': perfil
     }
     return render(request, 'Usuarios/perfil.html', context)
 
@@ -79,7 +82,13 @@ def profile(request):
 def ver_perfil(request, user_id):
     usuario = get_object_or_404(User, id=user_id)
     perfil = usuario.userprofile
-    return render(request, 'Usuarios/perfil.html', {'usuario': usuario, 'perfil': perfil})
+    
+    # Verificar si el usuario actualmente autenticado es el mismo que el usuario del perfil.
+    es_mismo_usuario = False
+    if request.user == usuario:
+        es_mismo_usuario = True
+
+    return render(request, 'Usuarios/perfil.html', {'usuario': usuario, 'perfil': perfil, 'es_mismo_usuario': es_mismo_usuario})
 
 
 @login_required

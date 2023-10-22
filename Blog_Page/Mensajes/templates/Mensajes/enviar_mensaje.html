@@ -9,34 +9,47 @@ Enviar Mensaje
 {% block main %}
 <h2>Enviar Mensaje</h2>
 <form method="post">
-    {% csrf_token %}
-    
-    <!-- Destinatario -->
-    <div class="form-group">
-        {% if not form.destinatario.value %}
-            <label for="{{ form.destinatario.id_for_label }}">Destinatario:</label>
-            {{ form.destinatario }}
-            {% if form.destinatario.errors and form.is_bound %}
-                <div class="alert alert-danger">
-                    {{ form.destinatario.errors|join:", " }}
-                </div>
-            {% endif %}
-        {% else %}
-            <input type="hidden" name="{{ form.destinatario.name }}" value="{{ form.destinatario.value }}">
-        {% endif %}
-    </div>
+{% csrf_token %}
 
-    <!-- Asunto -->
-    <div class="form-group">
-        <label for="{{ form.cuerpo.id_for_label }}">Asunto:</label>
-        {{ form.cuerpo }}
-        {% if form.cuerpo.errors and form.is_bound %}
+<!-- Destinatario -->
+<div class="form-group">
+    {% if not form.destinatario.value %}
+        <label for="{{ form.destinatario.id_for_label }}">Destinatario:</label>
+        {{ form.destinatario }}
+        {% if form.destinatario.errors and form.is_bound %}
             <div class="alert alert-danger">
-                {{ form.cuerpo.errors|join:", " }}
+                {{ form.destinatario.errors|join:", " }}
             </div>
         {% endif %}
-    </div>
+    {% else %}
+        <input type="hidden" name="{{ form.destinatario.name }}" value="{{ form.destinatario.value }}">
+    {% endif %}
+</div>
 
+<!-- Asunto -->
+<div class="form-group">
+    <label for="{{ form.asunto.id_for_label }}">Asunto:</label>
+    {{ form.asunto }}
+    {% if form.asunto.errors and form.is_bound %}
+        <div class="alert alert-danger">
+            {{ form.asunto.errors|join:", " }}
+        </div>
+    {% endif %}
+</div>
+
+<!-- Cuerpo -->
+<div class="form-group">
+    <label for="{{ form.cuerpo.id_for_label }}">Mensaje:</label>
+    {{ form.cuerpo }}
+    {% if form.cuerpo.errors and form.is_bound %}
+        <div class="alert alert-danger">
+            {{ form.cuerpo.errors|join:", " }}
+        </div>
+    {% endif %}
+<!-- Botón Enviar -->
+<div class="form-group">
     <button type="submit" class="btn btn-primary">Enviar</button>
+</div>
+
 </form>
 {% endblock main %}

@@ -16,6 +16,7 @@ Lista de Mensajes
     <thead>
         <tr>
             <th>Remitente</th>
+            <th>Asunto</th> <!-- Añadido -->
             <th>Fecha</th>
             <th>Acción</th>
         </tr>
@@ -23,12 +24,14 @@ Lista de Mensajes
     <tbody>
         {% for mensaje in mensajes %}
         <tr>
-            <!-- Agrega el enlace al perfil del remitente aquí -->
             <td><a href="{% url 'ver_perfil' mensaje.remitente.id %}">{{ mensaje.remitente.username }}</a></td>
+            <td>{{ mensaje.asunto|default:"Sin asunto" }}</td> <!-- Añadido -->
             <td>{{ mensaje.fecha_envio }}</td>
-            <td><a href="{% url 'ver_mensaje' mensaje.id %}">Ver detalle</a></td>
+            <td><a href="{% url 'ver_mensaje' mensaje.id %}">Ver mensaje</a></td> <!-- Modificado "Ver detalle" a "Ver mensaje" -->
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+
 {% endblock main %}
