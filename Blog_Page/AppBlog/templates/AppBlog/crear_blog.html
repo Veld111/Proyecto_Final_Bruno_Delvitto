@@ -1,0 +1,23 @@
+{% extends 'AppBlog/base.html' %}
+
+{% load static %}
+
+{% block title %} Crear Blog {% endblock title %}
+
+{% block main %}
+<div class="container mt-5" style="max-width: 800px;">
+    <h2 class="text-center">Crear nuevo Blog</h2>
+
+    <!-- Formulario de creación de Blog -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success">Guardar Blog</button>
+            <a href="{% url 'lista_blogs' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock main %}

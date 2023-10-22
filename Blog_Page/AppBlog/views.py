@@ -29,12 +29,20 @@ def borrar_blog(request, blog_id):
         return redirect('lista_blogs')
     return render(request, 'AppBlog/confirmar_borrado.html', {'blog': blog})
 
-
 @login_required
 @user_passes_test(es_admin)
 def crear_blog(request):
-    pass
-    # Tu lógica para crear una película
+    if request.method == "POST":
+        form = BlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            blog = form.save(commit=False)
+            blog.autor = request.user
+            blog.save()
+            return redirect('lista_blogs')
+    else:
+        form = BlogForm()
+    return render(request, 'AppBlog/crear_blog.html', {'form': form})
+
 
 def detalle_blog(request, pageId):
     blog = get_object_or_404(Blog, id=pageId)
