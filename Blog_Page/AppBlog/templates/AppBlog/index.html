@@ -5,6 +5,37 @@
 {% block title %} Inicio {% endblock title %}
 
 {% block main %}
-<!-- Aquí tu contenido existente -->
+<div style="text-align: center;">
+    <h1 style="font-size: 4rem; font-weight: bold;">Blog de películas</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    {% for blog in blogs %}
+    <div class="card mb-4">
+        {% if blog.imagen %}
+            <img src="{{ blog.imagen.url }}" alt="{{ blog.titulo }}" style="width: 100%; height: auto;">
+        {% else %}
+            <img src="{{ blog.imagen.url }}" alt="Imagen del blog" style="width: 100%; height: auto;">
+            {% endif %}
+        
+        <div class="card-body">
+            <h5 class="card-title">{{ blog.titulo }}</h5>
+            <p class="card-text">{{ blog.resumen }}</p>
+            <p class="card-text"><small class="text-muted">{{ blog.fecha_creacion|date:"d M Y" }}</small></p>
+            <a href="{% url 'detalle_blog' blog.id %}" class="btn btn-primary">Leer más</a>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col-md-4">
+    <h2>Posteos previos</h2>
+    <ul>
+      {% for blog in blogs %}
+      <li><a href="{% url 'detalle_blog' blog.id %}">{{ blog.titulo }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 
 {% endblock main %}

@@ -32,7 +32,8 @@ def enviar_mensaje(request, respuesta_a_id=None):
         else:
             form = MensajeForm()
 
-    return render(request, 'Mensajes/enviar_mensaje.html', {'form': form})
+    return render(request, 'Mensajes/enviar_mensaje.html', {'form': form, 'respuesta_a_id': respuesta_a_id})
+
 
 
 
