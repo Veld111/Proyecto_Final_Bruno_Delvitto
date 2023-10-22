@@ -10824,3 +10824,41 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+
+body {
+  background-color: #2a2a2a;  /* Gris oscuro, pero no negro puro */
+  color: #f1f1f1;  /* Un blanco ligeramente apagado */
+}
+
+/* Para el navbar, para que el texto se vea */
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(241, 241, 241, 0.9);  /* El mismo blanco apagado para los enlaces del navbar */
+}
+
+/* Pie de página */
+footer {
+  background-color: #3a3a3a;  /* Un gris un poco más claro que el fondo para diferenciar el pie de página */
+  color: #f1f1f1;
+}
+
+/* Estilos para la tabla */
+.table {
+    background-color: #4a4a4a; /* Gris claro para el fondo de la tabla */
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #3a3a3a; /* Un poco más oscuro para el encabezado */
+    border: 1px solid #5a5a5a; /* Borde ligeramente más claro */
+    color: #f1f1f1;
+}
+
+.table tbody td {
+    border: 1px solid #5a5a5a; /* Borde ligeramente más claro */
+    color: #f1f1f1;
+}
+
+.table a {
+    color: #00aaff; /* Color de los enlaces dentro de la tabla */
+}

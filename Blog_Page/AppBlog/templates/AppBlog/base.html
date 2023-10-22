@@ -8,7 +8,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'AppBlog/css/styles.css' %}" rel="stylesheet" />
 </head>
-<body id="page-top" style="padding-top: 6rem;"> <!-- Modificado padding-top -->
+<body id="page-top" style="padding-top: 6rem;">
 
     {% if messages %}
     <div class="messages">
@@ -58,12 +58,16 @@
 </nav>
 
     {% block main %}
-    <div style="margin: 5rem 0;"> <!-- Modificado el estilo para agregar margen inferior -->
-
+    <div style="margin-top: 5rem; text-align: center;">
+        <h1>Blog de Películas</h1>
+    </div>
     {% endblock main %}
+
     <!-- Pie de página -->
     <footer class="py-5 bg-dark">
         <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
             <p class="m-0 text-center text-white">Derechos reservados &copy; Tu sitio web 2023</p>
         </div>
     </footer>
