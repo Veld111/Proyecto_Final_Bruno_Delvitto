@@ -6,7 +6,9 @@ from django.dispatch import receiver
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='Blog_Page/media/avatar', default='Blog_Page/media/avatar/generico.png')
-
+    descripcion = models.TextField(blank=True, null=True)
+    web_url = models.URLField("URL del Sitio Web", blank=True, null=True)
+    
     def __str__(self):
         return self.user.username
 

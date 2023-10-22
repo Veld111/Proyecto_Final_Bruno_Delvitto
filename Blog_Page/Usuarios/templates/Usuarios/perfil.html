@@ -11,16 +11,18 @@
     {% if request.user.userprofile.avatar %}
         <img src="{{ request.user.userprofile.avatar.url }}" alt="" width="100">
     {% else %}
-        <!-- En caso de que, por alguna razón, el avatar no esté configurado -->
         <img src="{% static 'Blog_Page/media/avatar/generico.png' %}" alt="" width="100">
     {% endif %}
+    <p>Descripción: {{ request.user.userprofile.descripcion }}</p>
+    <p>Sitio Web: <a href="{{ request.user.userprofile.web_url }}" target="_blank">{{ request.user.userprofile.web_url }}</a></p>
 
     <!-- ... más detalles del perfil ... -->
-    <a href="{% url 'editar' %}">Editar Perfil</a> | 
+    <a href="{% url 'editar' %}">Editar Perfil</a> |
     <a href="{% url 'logout' %}">Desloguearse</a>
-{% else %}
-    <a href="{% url 'login' %}">Iniciar Sesión</a> | 
+    {% else %}
+    <a href="{% url 'login' %}">Iniciar Sesión</a> |
     <a href="{% url 'registro' %}">Registrarse</a>
-{% endif %}
+    {% endif %}
+    
 {% endblock main %}
 

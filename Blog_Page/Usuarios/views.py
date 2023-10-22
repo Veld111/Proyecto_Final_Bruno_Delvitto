@@ -100,10 +100,14 @@ def edit(request):
                 usuario.save()
 
                 # Código para guardar el avatar si ha sido modificado
+                perfil = usuario.userprofile
                 if 'avatar' in miFormulario.changed_data:
-                    perfil = usuario.userprofile
-                    perfil.avatar = miFormulario.cleaned_data['avatar']
-                    perfil.save()
+                    perfil.avatar = informacion['avatar']
+                if 'descripcion' in miFormulario.changed_data:
+                    perfil.descripcion = informacion['descripcion']
+                if 'web_url' in miFormulario.changed_data:
+                    perfil.web_url = informacion['web_url']
+                perfil.save()
 
                 messages.success(request, "Perfil actualizado exitosamente!")
                 return redirect('inicio')
