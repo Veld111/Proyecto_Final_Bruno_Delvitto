@@ -12,7 +12,15 @@ def lista_mensajes(request):
 def enviar_mensaje(request, respuesta_a_id=None):
     if respuesta_a_id:
         mensaje_original = Mensaje.objects.get(id=respuesta_a_id)
-        form = MensajeForm(initial={'destinatario': mensaje_original.remitente}, es_respuesta=True)
+        if request.method == "POST":
+            form = MensajeForm(request.POST)
+            if form.is_valid():
+                mensaje = form.save(commit=False)
+                mensaje.remitente = request.user
+                mensaje.save()
+                return redirect('lista_mensajes')
+        else:
+            form = MensajeForm(initial={'destinatario': mensaje_original.remitente})
     else:
         if request.method == "POST":
             form = MensajeForm(request.POST)
@@ -25,7 +33,6 @@ def enviar_mensaje(request, respuesta_a_id=None):
             form = MensajeForm()
 
     return render(request, 'Mensajes/enviar_mensaje.html', {'form': form})
-
 
 
 
