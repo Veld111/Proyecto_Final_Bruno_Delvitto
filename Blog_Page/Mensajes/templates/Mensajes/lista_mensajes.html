@@ -23,7 +23,8 @@ Lista de Mensajes
     <tbody>
         {% for mensaje in mensajes %}
         <tr>
-            <td>{{ mensaje.remitente.username }}</td>
+            <!-- Agrega el enlace al perfil del remitente aquí -->
+            <td><a href="{% url 'ver_perfil' mensaje.remitente.id %}">{{ mensaje.remitente.username }}</a></td>
             <td>{{ mensaje.fecha_envio }}</td>
             <td><a href="{% url 'ver_mensaje' mensaje.id %}">Ver detalle</a></td>
         </tr>

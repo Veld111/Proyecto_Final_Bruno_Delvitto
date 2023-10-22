@@ -6,23 +6,22 @@
 
 {% block main %}
 
-{% if request.user.is_authenticated %}
-    <h2>Perfil de {{ request.user.username }}</h2>
-    {% if request.user.userprofile.avatar %}
-        <img src="{{ request.user.userprofile.avatar.url }}" alt="" width="100">
+{% if usuario.is_authenticated %}
+    <h2>Perfil de {{ usuario.username }}</h2>
+    {% if perfil.avatar %}
+        <img src="{{ perfil.avatar.url }}" alt="" width="100">
     {% else %}
         <img src="{% static 'Blog_Page/media/avatar/generico.png' %}" alt="" width="100">
     {% endif %}
-    <p>Descripción: {{ request.user.userprofile.descripcion }}</p>
-    <p>Sitio Web: <a href="{{ request.user.userprofile.web_url }}" target="_blank">{{ request.user.userprofile.web_url }}</a></p>
+    <p>Descripción: {{ perfil.descripcion }}</p>
+    <p>Sitio Web: <a href="{{ perfil.web_url }}" target="_blank">{{ perfil.web_url }}</a></p>
 
     <!-- ... más detalles del perfil ... -->
     <a href="{% url 'editar' %}">Editar Perfil</a> |
     <a href="{% url 'logout' %}">Desloguearse</a>
-    {% else %}
+{% else %}
     <a href="{% url 'login' %}">Iniciar Sesión</a> |
     <a href="{% url 'registro' %}">Registrarse</a>
-    {% endif %}
+{% endif %}
     
 {% endblock main %}
-

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -6,6 +6,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import AvatarUploadForm
 from .models import UserProfile
 from Usuarios.forms import UserEditForm, UserRegisterForm
+from django.contrib.auth.models import User
+from .models import UserProfile
 
 
 
@@ -71,6 +73,13 @@ def profile(request):
         'form': form  # Añade el formulario al contexto para renderizarlo en el template
     }
     return render(request, 'Usuarios/perfil.html', context)
+
+
+
+def ver_perfil(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    perfil = usuario.userprofile
+    return render(request, 'Usuarios/perfil.html', {'usuario': usuario, 'perfil': perfil})
 
 
 @login_required
