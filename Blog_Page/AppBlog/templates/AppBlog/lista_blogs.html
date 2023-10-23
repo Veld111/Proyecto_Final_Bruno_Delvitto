@@ -11,6 +11,8 @@
 
     <!-- Título centrado -->
     <h2 class="text-center">Blogs</h2>
+    
+    <a href="{% url 'crear_blog' %}" class="btn btn-success">Crear nuevo blog</a>
 
     {% for blog in blogs %}
     <div class="card mb-4" style="float: left; width: 100%;">
