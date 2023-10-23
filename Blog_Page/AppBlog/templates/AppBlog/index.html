@@ -9,7 +9,6 @@
     <h1 style="font-size: 4rem; font-weight: bold;">Blog de películas</h1>
 </div>
 
-<!-- Limitar el ancho y centrar el contenedor principal -->
 <div class="container" style="max-width: 800px; margin: 0 auto;">
   <div class="row">
     <div class="col-md-8">
@@ -37,8 +36,8 @@
         <li><a href="{% url 'detalle_blog' blog.id %}">{{ blog.titulo }}</a></li>
         {% endfor %}
       </ul>
+
+      <a href="{% url 'crear_blog' %}" class="btn btn-success mt-3">Crear nuevo blog</a>
     </div>
   </div>
-</div> <!-- Fin del contenedor principal -->
-
-{% endblock main %}
+</div> {% endblock main %}
