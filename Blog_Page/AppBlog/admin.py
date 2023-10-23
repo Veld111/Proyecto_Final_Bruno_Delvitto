@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Pelicula, Blog 
-admin.site.register(Pelicula)
+from .models import Blog 
+
 admin.site.register(Blog)

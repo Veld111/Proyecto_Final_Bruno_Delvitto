@@ -1,18 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-class Pelicula(models.Model):
-    titulo = models.CharField(max_length=255)
-    subtitulo = models.CharField(max_length=255, blank=True, null=True)
-    descripcion = models.TextField()
-    director = models.CharField(max_length=100)
-    fecha_lanzamiento = models.DateField()
-    imagen = models.ImageField(upload_to='peliculas/')
-
-    def __str__(self):
-        return self.titulo
-
-    
 class Blog(models.Model):
     titulo = models.CharField(max_length=255)
     subtitulo = models.CharField(max_length=255, blank=True, null=True)

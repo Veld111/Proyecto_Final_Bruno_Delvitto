@@ -43,6 +43,12 @@ def crear_blog(request):
         form = BlogForm()
     return render(request, 'AppBlog/crear_blog.html', {'form': form})
 
+def inicio(request):
+    blogs = Blog.objects.all()  
+    return render(request, 'AppBlog/index.html', {'blogs': blogs})
+
+def about(request):  # Nueva función de vista para la página 'About'
+    return render(request, 'AppBlog/about.html')
 
 def detalle_blog(request, pageId):
     blog = get_object_or_404(Blog, id=pageId)
@@ -51,16 +57,4 @@ def detalle_blog(request, pageId):
 def lista_blogs(request):
     blogs = Blog.objects.all()
     return render(request, 'AppBlog/lista_blogs.html', {'blogs': blogs})
-
-
-def inicio(request):
-    blogs = Blog.objects.all()  
-    return render(request, 'AppBlog/index.html', {'blogs': blogs})
-
-def peliculas(request):
-    return render(request, 'AppBlog/peliculas.html')
-
-def about(request):  # Nueva función de vista para la página 'About'
-    return render(request, 'AppBlog/about.html')
-
 
